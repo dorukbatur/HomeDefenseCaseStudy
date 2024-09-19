@@ -10,6 +10,7 @@ public class SaveLoadBinary
     public static SaveLoadBinary instance;
     public int SaveLoadVersion = 0;
 
+    //todo money, level, etc.
     
     public static void SaveGame()
     {
