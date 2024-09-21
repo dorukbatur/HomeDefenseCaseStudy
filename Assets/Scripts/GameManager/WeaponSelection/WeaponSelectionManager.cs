@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponSelectionManager : MonoBehaviour
 {
     [SerializeField] private Transform envParent, weaponPositioner;
-    
+
     public void InitiateWeaponSelection()
     {
         
