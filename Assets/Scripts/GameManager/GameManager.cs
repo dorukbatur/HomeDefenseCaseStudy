@@ -7,12 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private UIManager UIManager;
-    [SerializeField] private Transform levelParent;
-    
     [SerializeField] private List<LevelManager> levelManagers = new List<LevelManager>();
     
     private LevelManager activeLevelManager;
-    private int activeLevelIndex;
+    private int tempActiveLevelIndex;
     
     private void Awake()
     {
