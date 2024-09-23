@@ -33,7 +33,7 @@ public class UpgradeBuyButton : MonoBehaviour
 
     private void TextTweenAnimation()
     {
-        buttonText.transform.DOScale(Vector3.one * 1.1f, 1f).OnComplete(() =>
+        buttonText.transform.DOScale(Vector3.one * 1.04f, 1f).OnComplete(() =>
         {
             buttonText.transform.DOScale(Vector3.one * 1f, 1f).OnComplete(() =>
             {

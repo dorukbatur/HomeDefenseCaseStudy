@@ -44,7 +44,7 @@ public class WeaponSelectionManager : MonoBehaviour
             text = WeaponsList[weaponIndex].weaponCost.ToString();
         }
         
-        UIManager.instance.UpdateUpgradeBuyButton(text, isBought, isPurchasable);
+        UIManager.instance.UpdateUpgradeBuyButton(text + " $", isBought, isPurchasable);
         ShowWeapon(weaponIndex);
     }
     
@@ -60,7 +60,11 @@ public class WeaponSelectionManager : MonoBehaviour
             Destroy(activeWeaponShown);
         }
         activeWeaponShown = Instantiate(WeaponsList[index].prefab, weaponSpawnParent);
-        activeWeaponShown.transform.DOShakeScale(0.1f, Vector3.one * 0.4f, 1, 0f);
+        activeWeaponShown.transform.localScale = Vector3.zero;
+        activeWeaponShown.transform.DOScale(Vector3.one * 1.1f, 0.24f).OnComplete(() =>
+        {
+            activeWeaponShown.transform.DOScale(Vector3.one, 0.1f);
+        });
     }
     
 }
