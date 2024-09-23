@@ -11,6 +11,8 @@ public class SaveLoadBinary
     public static SaveLoadBinary instance;
     public int SaveLoadVersion = 0;
     public int activeWeaponIndex = 0;
+    public int activeLevelIndex = 0;
+    public float collectedMoney = 0;
     
     //todo money, level, etc.
     

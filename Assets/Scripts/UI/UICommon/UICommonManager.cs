@@ -8,17 +8,10 @@ public class UICommonManager : MonoBehaviour
 {
     [SerializeField] private UICommonItem uiMoneyItem,uiLevelItem;
     
-    //todo bağla bunu managera
-
-    private void Start()
-    {
-        Init();
-    }
-
     public void Init()
     {
-        uiMoneyItem.SetText("money"/*todo Money*/);
-        uiLevelItem.SetText("level"/*todo level*/);
+        uiMoneyItem.SetText(SaveLoadBinary.instance.collectedMoney.ToString() + " $");
+        uiLevelItem.SetText("Level: "+ SaveLoadBinary.instance.activeLevelIndex.ToString());
     }
     
 }

@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
 
     public void WeaponSelection(int weaponIndex)
     {
+        if (SaveLoadBinary.instance.activeWeaponIndex == weaponIndex)
+            return;
         SaveLoadBinary.instance.activeWeaponIndex = weaponIndex;
         SaveLoadBinary.SaveGame();
-        weaponSelectionManager.SelectWeapon();
+        weaponSelectionManager.ShowWeapon();
     }
     
 }

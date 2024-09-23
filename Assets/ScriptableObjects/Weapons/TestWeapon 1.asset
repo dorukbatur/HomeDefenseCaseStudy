@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88592efd26d408846bf2c2c58ba275e0, type: 3}
-  m_Name: TestWeapon 3
+  m_Name: TestWeapon 1
   m_EditorClassIdentifier: 
-  weaponCost: 15
-  menuScreenSprite: {fileID: 21300000, guid: f89c1134ec308411884248ff29e3da10, type: 3}
-  prefab: {fileID: 1494106612615314066, guid: 4a4b8a3ad4e704d41951ddfdb2797d07, type: 3}
+  weaponCost: 0
+  weaponDamage: 25
+  weaponFireRate: 200
+  weaponAmmoCapacity: 12
+  menuScreenSprite: {fileID: 21300000, guid: 4a325c72e4a524f2fb8e23c43622f2d3, type: 3}
+  prefab: {fileID: 189091626145577203, guid: 464d2b315a1ed6b408948cc2fc04e8f7, type: 3}
