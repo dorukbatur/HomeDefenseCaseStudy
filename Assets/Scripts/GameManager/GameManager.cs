@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private UIManager UIManager;
-    [SerializeField] private WeaponSelectionManager weaponSelectionManager;
-    [SerializeField] private List<LevelManager> levelManagers = new List<LevelManager>();
+    public UIManager UIManager;
+    public WeaponSelectionManager weaponSelectionManager;
+    public List<LevelManager> levelManagers = new List<LevelManager>();
     
     private LevelManager activeLevelManager;
     private int tempActiveLevelIndex;
@@ -17,26 +17,38 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         SaveLoadBinary.LoadGame();
+        if (SaveLoadBinary.instance.weaponUpgradeLevels == null)
+        {
+            SaveLoadBinary.instance.weaponUpgradeLevels = new float[weaponSelectionManager.WeaponsList.Count];
+            for (int i = 0; i < SaveLoadBinary.instance.weaponUpgradeLevels.Length; i++)
+            {
+                SaveLoadBinary.instance.weaponUpgradeLevels[i] = 0;
+            }
+        }
+        SaveLoadBinary.SaveGame();
+        
+        SaveLoadBinary.instance.collectedMoney = 100;
         UIManager.InitiaterUIManager();
         weaponSelectionManager.InitiateWeaponSelection();
     }
-
-    private void Start()
+    
+    public void DoWeaponSelection(int weaponIndex)
     {
-        //todo level check and instantiate level
+        weaponSelectionManager.DoWeaponSelection(weaponIndex);
     }
-    
-    
-    
-    //TODO WeaponSelectionOperations
 
-    public void WeaponSelection(int weaponIndex)
+    #region MoneyOperations
+
+    public bool IsMoneyEnoughtoBuy(float cost)
     {
-        if (SaveLoadBinary.instance.activeWeaponIndex == weaponIndex)
-            return;
-        SaveLoadBinary.instance.activeWeaponIndex = weaponIndex;
+        return cost <= SaveLoadBinary.instance.collectedMoney;
+    }
+
+    public void BuySomething(float cost)
+    {
+        SaveLoadBinary.instance.collectedMoney -= cost;
         SaveLoadBinary.SaveGame();
-        weaponSelectionManager.ShowWeapon();
     }
-    
+
+    #endregion
 }

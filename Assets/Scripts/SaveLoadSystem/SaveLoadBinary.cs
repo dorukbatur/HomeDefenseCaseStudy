@@ -15,6 +15,7 @@ public class SaveLoadBinary
     public float collectedMoney = 0;
     
     //todo money, level, etc.
+    public float[] weaponUpgradeLevels;
     
     public static void SaveGame()
     {

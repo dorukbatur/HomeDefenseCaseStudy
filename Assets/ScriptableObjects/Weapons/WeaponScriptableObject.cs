@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponScriptableObject : ScriptableObject
 {
     public float weaponCost;
+    public float weaponUpgradeCost;
     public int weaponDamage;
     public float weaponFireRate;
     public int weaponAmmoCapacity;

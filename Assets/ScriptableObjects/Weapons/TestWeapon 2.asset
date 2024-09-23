@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestWeapon 2
   m_EditorClassIdentifier: 
   weaponCost: 2500
+  weaponUpgradeCost: 250
   weaponDamage: 38
   weaponFireRate: 380
   weaponAmmoCapacity: 24

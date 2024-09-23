@@ -10,8 +10,8 @@ public class UICommonManager : MonoBehaviour
     
     public void Init()
     {
-        uiMoneyItem.SetText(SaveLoadBinary.instance.collectedMoney.ToString() + " $");
-        uiLevelItem.SetText("Level: "+ SaveLoadBinary.instance.activeLevelIndex.ToString());
+        uiMoneyItem.SetText(SaveLoadBinary.instance.collectedMoney + " $");
+        uiLevelItem.SetText("Level: " + (SaveLoadBinary.instance.activeLevelIndex + 1));
     }
     
 }

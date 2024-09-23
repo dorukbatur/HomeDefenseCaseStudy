@@ -7,12 +7,28 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    [SerializeField] private UICommonManager UICommonManager;
-    [SerializeField] private UISelectionManager UISelectionManager;
+    public UICommonManager UICommonManager;
+    public UISelectionManager UISelectionManager;
     public void InitiaterUIManager()
     {
         instance = this;
         UICommonManager.Init();
         UISelectionManager.Init();
     }
+
+    public void RefreshStatesListItems(int index)
+    {
+        UISelectionManager.RefreshStatesListItems(index);
+    }
+    public void UpdateUpgradeBuyButton(string text, bool isBought,bool isPurchasable)
+    {
+        UISelectionManager.UpdateUpgradeBuyButton(text, isBought, isPurchasable);
+    }
+
+    public void ChooseStateOfListItem(int index)
+    {
+        UISelectionManager.ChooseStateOfListItem(index);
+    }
+
+
 }

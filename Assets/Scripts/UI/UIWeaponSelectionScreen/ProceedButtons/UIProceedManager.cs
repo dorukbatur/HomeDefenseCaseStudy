@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class UIProceedManager : MonoBehaviour
 {
+    private UISelectionManager manager;
     [SerializeField] private StartButton _startButton;
     [SerializeField] private UpgradeBuyButton _upgradeBuyButton;
 
-    public void Init()
+    public void Init(UISelectionManager manager)
     {
+        this.manager = manager;
         _startButton.Init(this);
         _upgradeBuyButton.Init(this);
     }
@@ -16,9 +18,9 @@ public class UIProceedManager : MonoBehaviour
     
     #region UpgradeButton
 
-    public void UpdateUpgradeBuyButton()
+    public void UpdateUpgradeBuyButton(string text, bool isBought,bool isPurchasable)
     {
-        
+        _upgradeBuyButton.SetText(text, isBought, isPurchasable);
     }
     
     

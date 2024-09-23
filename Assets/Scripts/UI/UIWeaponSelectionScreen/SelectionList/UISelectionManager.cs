@@ -21,26 +21,34 @@ public class UISelectionManager : MonoBehaviour
             weaponListUIItems.Add(item);
             item.Init(this, weapons[i].menuScreenSprite, weapons[i].weaponCost.ToString());
         }
-        SelectAndChangeStatesListItems();
-        uiProceedManager.Init();
+        RefreshStatesListItems(SaveLoadBinary.instance.activeWeaponIndex);
+        uiProceedManager.Init(this);
     }
 
     public void OnClickListItem(ListItem listItem)
     {
-        int weaponIndex = weaponListUIItems.IndexOf(listItem);
-        GameManager.instance.WeaponSelection(weaponIndex);
-        SelectAndChangeStatesListItems();
-        //uiProceedManager.UpdateUpgradeBuyButton();
+        GameManager.instance.DoWeaponSelection(weaponListUIItems.IndexOf(listItem));
     }
 
 
-    private void SelectAndChangeStatesListItems()
+    public void UpdateUpgradeBuyButton(string text, bool isBought,bool isPurchasable)
+    {
+        uiProceedManager.UpdateUpgradeBuyButton(text, isBought,isPurchasable);
+    }
+
+    public void RefreshStatesListItems(int index)
     {
         for (int i = 0; i < weapons.Count; i++)
-        {
             weaponListUIItems[i].ChangeState(0, weapons[i].weaponCost == 0 ? "owned" : weapons[i].weaponCost.ToString());
-        }
-        weaponListUIItems[SaveLoadBinary.instance.activeWeaponIndex].ChangeState(2,"selected");
+        weaponListUIItems[index].ChangeState(2,"selected");
+    }
+    public void ChooseStateOfListItem(int index)
+    {
+        int activeWeaponIndex = SaveLoadBinary.instance.activeWeaponIndex;
+        for (int i = 0; i < weapons.Count; i++)
+            weaponListUIItems[i].ChangeState(0, weapons[i].weaponCost == 0 ? "owned" : weapons[i].weaponCost.ToString());
+        weaponListUIItems[index].ChangeState(1,weapons[index].weaponCost.ToString());
+        weaponListUIItems[activeWeaponIndex].ChangeState(2, "owned");
     }
     
 }
