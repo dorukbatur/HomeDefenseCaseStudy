@@ -7,7 +7,7 @@ public class UISelectionManager : MonoBehaviour
 {
     [SerializeField] private ListItem listItemPrefab;
     [SerializeField] private Transform layoutParent;
-    [SerializeField] private List<Sprite> weaponImages;
+    [SerializeField] private List<WeaponScriptableObject> weapons;
     private List<ListItem> weaponListUIItems = new List<ListItem>();
 
     private void Start()
@@ -17,21 +17,31 @@ public class UISelectionManager : MonoBehaviour
 
     public void InitUISelectionManager()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < weapons.Count; i++)
         {
             ListItem item = Instantiate(listItemPrefab, Vector3.zero, Quaternion.identity, layoutParent);
             weaponListUIItems.Add(item);
-            item.Init(this, weaponImages[i], i.ToString());
+            item.Init(this, weapons[i].menuScreenSprite, weapons[i].weaponCost.ToString());
         }
+        SelectAndChangeStatesListItems();
     }
 
     public void OnClickListItem(ListItem listItem)
     {
-        foreach (ListItem item in weaponListUIItems)
-        {
-            item.ChangeState(0, "0");
-        }
-        listItem.ChangeState(2,"selected");
+        int weaponIndex = weaponListUIItems.IndexOf(listItem);
+        GameManager.instance.WeaponSelection(weaponIndex);
+        SelectAndChangeStatesListItems();
     }
+
+
+    private void SelectAndChangeStatesListItems()
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            weaponListUIItems[i].ChangeState(0, weapons[i].weaponCost.ToString());
+        }
+        weaponListUIItems[SaveLoadBinary.instance.activeWeaponIndex].ChangeState(2,"selected");
+    }
+    
     
 }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class SaveLoadBinary
 {
     public static SaveLoadBinary instance;
     public int SaveLoadVersion = 0;
-
+    public int activeWeaponIndex = 0;
+    
     //todo money, level, etc.
     
     public static void SaveGame()
