@@ -12,6 +12,6 @@ public class SubLevelManager : MonoBehaviour
     public void InitiateSubLevelManager(LevelManager parentLevelManager)
     {
         this.parentLevelManager = parentLevelManager;
-        _enemyManager.Init();
+        _enemyManager.Init(this, playerFightPos);
     }
 }
