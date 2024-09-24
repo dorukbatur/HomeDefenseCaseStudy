@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCTRL : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     public void Init()
     {

@@ -5,9 +5,13 @@ using UnityEngine;
 public class SubLevelManager : MonoBehaviour
 {
     private LevelManager parentLevelManager;
-    //todo enemy 
+
+    [SerializeField] private EnemyManager _enemyManager;
+    [SerializeField] private Transform playerFightPos;
+
     public void InitiateSubLevelManager(LevelManager parentLevelManager)
     {
         this.parentLevelManager = parentLevelManager;
+        _enemyManager.Init();
     }
 }
