@@ -36,7 +36,7 @@ public class UIProceedManager : MonoBehaviour
 
     public void OnClickStartButton()
     {
-        //TODO SUBLEVEL BAŞLICAK 
+        GameManager.instance.OnClickStartGame();
     }
     
 

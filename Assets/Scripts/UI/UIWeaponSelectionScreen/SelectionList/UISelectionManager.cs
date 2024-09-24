@@ -50,5 +50,9 @@ public class UISelectionManager : MonoBehaviour
         weaponListUIItems[index].ChangeState(1,weapons[index].weaponCost.ToString() + " $");
         weaponListUIItems[activeWeaponIndex].ChangeState(2, "selected");
     }
-    
+
+    public void StartGamePressed()
+    {
+        gameObject.SetActive(false);
+    }
 }

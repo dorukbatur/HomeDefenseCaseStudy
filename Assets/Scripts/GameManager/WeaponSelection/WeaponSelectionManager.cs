@@ -66,5 +66,11 @@ public class WeaponSelectionManager : MonoBehaviour
             activeWeaponShown.transform.DOScale(Vector3.one, 0.1f);
         });
     }
+
+    public void StartGamePressed()
+    {
+        envParent.gameObject.SetActive(false);
+        UIManager.instance.StartGamePressed();
+    }
     
 }

@@ -31,4 +31,8 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public void StartGamePressed()
+    {
+        UISelectionManager.StartGamePressed();
+    }
 }

@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public UIManager UIManager;
     public WeaponSelectionManager weaponSelectionManager;
-    public List<LevelManager> levelManagers = new List<LevelManager>();
     
+    [SerializeField] private List<LevelManager> levelManagers = new List<LevelManager>();
     private LevelManager activeLevelManager;
-    private int tempActiveLevelIndex;
+    private int levelCounter;
     
     private void Awake()
     {
@@ -27,11 +27,27 @@ public class GameManager : MonoBehaviour
         }
         SaveLoadBinary.SaveGame();
         
-        SaveLoadBinary.instance.collectedMoney = 100;
+        SaveLoadBinary.instance.collectedMoney = 100;//todo silmeyi unutma
         UIManager.InitiaterUIManager();
         weaponSelectionManager.InitiateWeaponSelection();
     }
+
+
+    #region LevelOperations
     
+    
+    
+    public void OnClickStartGame()
+    {
+        weaponSelectionManager.StartGamePressed();
+        
+        levelCounter = SaveLoadBinary.instance.activeLevelIndex;
+        activeLevelManager = Instantiate(levelManagers[levelCounter], transform);
+        activeLevelManager.InitiateLevelManager(this);
+
+    }
+
+    #endregion
     public void DoWeaponSelection(int weaponIndex)
     {
         weaponSelectionManager.DoWeaponSelection(weaponIndex);

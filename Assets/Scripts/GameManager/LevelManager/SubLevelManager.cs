@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SubLevelManager : MonoBehaviour
 {
-    
-    
-    public void InitiateSubLevel()
+    private LevelManager parentLevelManager;
+    //todo enemy 
+    public void InitiateSubLevelManager(LevelManager parentLevelManager)
     {
-        //todo sublevel manager initiater
+        this.parentLevelManager = parentLevelManager;
     }
 }
