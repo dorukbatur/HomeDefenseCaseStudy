@@ -29,12 +29,12 @@ public class UISelectionManager : MonoBehaviour
 
     public void ResetUIInfoGraphic(int weaponIndex)
     {
-        int upgradeLevel = SaveLoadBinary.instance.weaponUpgradeLevels[weaponIndex] + 1;
+        int upgradeLevel = SaveLoadBinary.instance.weaponUpgradeLevels[weaponIndex];
         uiInfoGraphicManager.OpenCloseTexts(upgradeLevel < 5);
-        
-        int extraDamage = upgradeLevel * weapons[weaponIndex].weaponUpgradeDamage;
-        int extraAmmo = upgradeLevel * weapons[weaponIndex].weaponUpgradeAmmoCapacity;
-        float extraFireRate = upgradeLevel * weapons[weaponIndex].weaponUpgradeFireRate;
+
+        int extraDamage = (upgradeLevel + 1) * weapons[weaponIndex].weaponUpgradeDamage;
+        int extraAmmo = (upgradeLevel + 1) * weapons[weaponIndex].weaponUpgradeAmmoCapacity;
+        float extraFireRate = (upgradeLevel + 1) * weapons[weaponIndex].weaponUpgradeFireRate;
         
         int newDamage = weapons[weaponIndex].weaponDamage + extraDamage;
         int newCapacity = weapons[weaponIndex].weaponAmmoCapacity + extraAmmo;

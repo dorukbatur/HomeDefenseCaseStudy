@@ -11,10 +11,14 @@ public class UIWeaponSituation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoCountTextStatic;
     [SerializeField] private TextMeshProUGUI ammoCountTextDynamic;
     private string initStaticAmmoText;
+    private string weaponAmmoCapacity;
     public void Init()
     {
+        int index = SaveLoadBinary.instance.activeWeaponIndex;
         weaponImage.sprite = weaponScriptableObjects[SaveLoadBinary.instance.activeWeaponIndex].gameScreenSprite;
-        string weaponAmmoCapacity = weaponScriptableObjects[SaveLoadBinary.instance.activeWeaponIndex].weaponAmmoCapacity.ToString();
+        string weaponAmmoCapacity = (weaponScriptableObjects[index].weaponAmmoCapacity +
+                                     weaponScriptableObjects[index].weaponUpgradeAmmoCapacity *
+                                     SaveLoadBinary.instance.weaponUpgradeLevels[index]).ToString();
         initStaticAmmoText = weaponAmmoCapacity;
         UpdateAmmoCount(weaponAmmoCapacity);
     }

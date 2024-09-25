@@ -18,7 +18,6 @@ public class PlayerCTRL : MonoBehaviour
     [SerializeField] private Animator animationCtrl;
     private static int FireTrigger = Animator.StringToHash("FireTrigger");
     private static int ReloadTrigger = Animator.StringToHash("ReloadTrigger");
-    private static int WeaponIndex = Animator.StringToHash("weaponIndex");
     
     
 
@@ -68,7 +67,6 @@ public class PlayerCTRL : MonoBehaviour
     {
         SetIKDisabled();
         DoReloadAnimation();
-        animationCtrl.SetInteger(WeaponIndex, SaveLoadBinary.instance.activeWeaponIndex);
     }
 
     public void SetIKDependsOnWeaponType()

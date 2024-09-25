@@ -2658,7 +2658,7 @@ GameObject:
   - component: {fileID: 790407336}
   - component: {fileID: 790407337}
   m_Layer: 0
-  m_Name: UIWeaponSelection
+  m_Name: UISelectionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
