@@ -11,6 +11,7 @@ public class UISelectionManager : MonoBehaviour
     [SerializeField] private Transform selectionLayoutParent;
     [SerializeField] private List<WeaponScriptableObject> weapons;
     [SerializeField] private UIProceedManager uiProceedManager;
+    [SerializeField] private UIInfoGraphicManager uiInfoGraphicManager;
     private List<ListItem> weaponListUIItems = new List<ListItem>();
 
     public void Init()
@@ -23,8 +24,32 @@ public class UISelectionManager : MonoBehaviour
         }
         RefreshStatesListItems(SaveLoadBinary.instance.activeWeaponIndex);
         uiProceedManager.Init(this);
+        ResetUIInfoGraphic(SaveLoadBinary.instance.activeWeaponIndex);
     }
 
+    public void ResetUIInfoGraphic(int weaponIndex)
+    {
+        int upgradeLevel = SaveLoadBinary.instance.weaponUpgradeLevels[SaveLoadBinary.instance.activeWeaponIndex] + 1;
+        uiInfoGraphicManager.OpenCloseTexts(upgradeLevel < 5);
+        
+        int extraDamage = upgradeLevel * weapons[SaveLoadBinary.instance.activeWeaponIndex].weaponUpgradeDamage;
+        int extraAmmo = upgradeLevel * weapons[SaveLoadBinary.instance.activeWeaponIndex].weaponUpgradeAmmoCapacity;
+        float extraFireRate = upgradeLevel * weapons[SaveLoadBinary.instance.activeWeaponIndex].weaponUpgradeFireRate;
+        
+        int newDamage = weapons[weaponIndex].weaponDamage + extraDamage;
+        int newCapacity = weapons[weaponIndex].weaponAmmoCapacity + extraAmmo;
+        float newFireRate = weapons[weaponIndex].weaponFireRate + extraFireRate;
+        
+        uiInfoGraphicManager.Init(
+            $"{newDamage}",
+            $"{extraDamage}",
+            $"{newFireRate}",
+            $"{extraFireRate}",
+            $"{newCapacity}",
+            $"{extraAmmo}");
+    }
+    
+    
     public void OnClickListItem(ListItem listItem)
     {
         GameManager.instance.DoWeaponSelection(weaponListUIItems.IndexOf(listItem));

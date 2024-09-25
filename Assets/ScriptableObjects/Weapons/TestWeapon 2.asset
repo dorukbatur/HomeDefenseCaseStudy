@@ -15,8 +15,11 @@ MonoBehaviour:
   weaponCost: 2500
   weaponUpgradeCost: 250
   weaponDamage: 38
+  weaponUpgradeDamage: 2
   weaponFireRate: 380
+  weaponUpgradeFireRate: 15
   weaponAmmoCapacity: 24
+  weaponUpgradeAmmoCapacity: 1
   gameScreenSprite: {fileID: 21300000, guid: c30ffab659c921b4db24b61094105fe6, type: 3}
   menuScreenSprite: {fileID: 21300000, guid: be3477032f6674ff68bad19e52d7b2b7, type: 3}
   prefab: {fileID: 7874684396750147702, guid: b0c409430ff16f9458eb5c4a87d637a1, type: 3}

@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         SaveLoadBinary.LoadGame();
         if (SaveLoadBinary.instance.weaponUpgradeLevels == null)
         {
-            SaveLoadBinary.instance.weaponUpgradeLevels = new float[weaponSelectionManager.WeaponsList.Count];
+            SaveLoadBinary.instance.weaponUpgradeLevels = new int[weaponSelectionManager.WeaponsList.Count];
             for (int i = 0; i < SaveLoadBinary.instance.weaponUpgradeLevels.Length; i++)
             {
                 SaveLoadBinary.instance.weaponUpgradeLevels[i] = 0;
