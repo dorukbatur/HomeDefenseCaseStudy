@@ -9,11 +9,13 @@ public class UIManager : MonoBehaviour
 
     public UICommonManager UICommonManager;
     public UISelectionManager UISelectionManager;
+    public UIShootingScreenManager UIShootingScreenManager;
     public void InitiaterUIManager()
     {
         instance = this;
         UICommonManager.Init();
         UISelectionManager.Init();
+        UIShootingScreenManager.Init();
     }
 
     public void RefreshStatesListItems(int index)

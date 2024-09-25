@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
         if (receiver)
         {
             receiver.OnTakeDamage(bulletDamage);
+            UIManager.instance.UIShootingScreenManager.GiveShootFeedback();
             gameObject.SetActive(false);
         }
     }
