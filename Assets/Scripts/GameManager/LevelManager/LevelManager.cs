@@ -21,9 +21,12 @@ public class LevelManager : MonoBehaviour
         activeSubLevel = Instantiate(subLevelManagers[subLevelCounter], subLevelManagerInstantiatePos[subLevelCounter]);
         activeSubLevel.InitiateSubLevelManager(this);
         playerController.InitPlayerCTRL(subLevelManagerInstantiatePos[subLevelCounter]);
-        //todo sublevel counter
+        subLevelCounter++; //todo
     }
 
+    
+    
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -36,10 +39,7 @@ public class LevelManager : MonoBehaviour
     {
         //todo süpersin doruk
         if (activeSubLevel != null)
-        {
-            Destroy(activeSubLevel);
-        }
-
+            Destroy(activeSubLevel.gameObject);
         subLevelCounter++;
         subLevelCounter %= subLevelManagers.Count;
         activeSubLevel = Instantiate(subLevelManagers[subLevelCounter], subLevelManagerInstantiatePos[subLevelCounter]);

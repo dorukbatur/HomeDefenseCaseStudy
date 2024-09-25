@@ -8,11 +8,11 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private Bullet bulletPrefab;
 
     
-    public void FireGun()
+    public void FireGun(float bulletDamage)
     {
         Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPos);
         bullet.transform.rotation = bulletSpawnPos.transform.rotation;
-        bullet.SetSpeedtoBullet();
+        bullet.SetSpeedtoBullet(bulletDamage);
         bullet.transform.parent = null;
         Destroy(bullet.gameObject, 2f);
     }

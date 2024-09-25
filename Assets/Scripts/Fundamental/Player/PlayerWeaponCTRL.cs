@@ -9,18 +9,27 @@ public class PlayerWeaponCTRL : MonoBehaviour
     [SerializeField] private RaycastCTRL _raycastCtrl;
     private GameObject activeWeaponShown;
     private WeaponScript activeWeaponScript;
+    private float bulletDamage;
+    private float timer = 1;
     
     public void InitiaterWeaponCtrl()
     {
         ShowWeapon(SaveLoadBinary.instance.activeWeaponIndex);
+        _raycastCtrl.Init(this);
     }
 
     private void Update()
     {
-        if (_raycastCtrl.UpdateRaycastCTRL())
+        if (timer < 0)
         {
-            activeWeaponScript.FireGun();
+            timer = 1f;
+            if (_raycastCtrl.UpdateRaycastCTRL())
+            {
+                activeWeaponScript.FireGun(bulletDamage);
+            }
+            return;
         }
+        timer -= Time.deltaTime;
     }
 
     public void ShowWeapon(int index)
@@ -28,6 +37,7 @@ public class PlayerWeaponCTRL : MonoBehaviour
         if (activeWeaponShown != null)
             Destroy(activeWeaponShown);
         activeWeaponShown = Instantiate(weaponsScriptableObjects[index].prefab, transform);
+        bulletDamage = weaponsScriptableObjects[index].weaponDamage; //todo upgrade calculation index
         activeWeaponScript = activeWeaponShown.GetComponentInChildren<WeaponScript>();
     }
     

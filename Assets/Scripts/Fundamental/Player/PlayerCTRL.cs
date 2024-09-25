@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerCTRL : MonoBehaviour
@@ -9,11 +10,14 @@ public class PlayerCTRL : MonoBehaviour
     private float sensivity = 400;
     [SerializeField] private Transform rotationRoot;
     [SerializeField] private PlayerWeaponCTRL weaponCtrl;
+    [SerializeField] private CinemachineVirtualCamera camera;
+    public CinemachineVirtualCamera Camera => camera;
 
     private float xRotation = 0f, yRotation = 0f;
     private float Yclamp = 90f;
     private float Xclamp = 45f;
-    
+
+
     public void InitPlayerCTRL(Transform walkToThisPos)
     {
         Cursor.lockState = CursorLockMode.Locked;

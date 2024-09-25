@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7025937097327594819, guid: e6ff63859df504d4598a8436fdda570b, type: 3}
       propertyPath: m_Name
-      value: Biker_Male
+      value: Biker_Male Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7695231452904101881, guid: e6ff63859df504d4598a8436fdda570b, type: 3}
       propertyPath: m_RootOrder

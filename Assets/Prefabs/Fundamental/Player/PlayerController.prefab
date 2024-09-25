@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c53193caa205842b8d8068e348451f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &5917142838131093558
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationRoot: {fileID: 6334299250730720525}
   weaponCtrl: {fileID: 7170080408329910359}
+  camera: {fileID: 5917142838221927489}
 --- !u!136 &6436797022138129381
 CapsuleCollider:
   m_ObjectHideFlags: 0
