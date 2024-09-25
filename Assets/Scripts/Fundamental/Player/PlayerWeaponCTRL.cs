@@ -11,7 +11,10 @@ public class PlayerWeaponCTRL : MonoBehaviour
     private int bulletDamage;
     private int ammoCapacity;
     private int ammoCount;
+    private bool isReloading = false;
     private float timer = 1;
+    
+    
     
     public void InitiaterWeaponCtrl()
     {
@@ -23,9 +26,11 @@ public class PlayerWeaponCTRL : MonoBehaviour
 
     private void Update()
     {
+        if (isReloading == true)
+            return;
         if (timer < 0)
         {
-            timer = 1f;
+            timer = 1f;//todo fire rate işlencek
             if (_raycastCtrl.UpdateRaycastCTRL())
             {
                 FireWeapon();
@@ -49,8 +54,25 @@ public class PlayerWeaponCTRL : MonoBehaviour
         { 
             activeWeaponScript.FireGun(bulletDamage);
             ammoCount--;
-            UIManager.instance.UIShootingScreenManager.UpdateAmmoCount(ammoCount.ToString());
+            UpdateAmmoCountText();
         }
-        //todo reload
+        if (ammoCount == 0)
+        {
+            isReloading = true;
+            GameManager.instance.ActiveLevelManager.PlayerController.ReloadWeapon();
+        }
+    }
+
+    public void ReloadWeaponComplete()
+    {
+        ammoCount = ammoCapacity;
+        timer = 0f;
+        UpdateAmmoCountText();
+        isReloading = false;
+    }
+
+    private void UpdateAmmoCountText()
+    {
+        UIManager.instance.UIShootingScreenManager.UpdateAmmoCount(ammoCount.ToString());
     }
 }

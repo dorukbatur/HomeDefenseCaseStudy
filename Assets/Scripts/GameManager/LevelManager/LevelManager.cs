@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<SubLevelManager> subLevelManagers;
     [SerializeField] private List<Transform> subLevelManagerInstantiatePos;
     [SerializeField] private PlayerCTRL playerController;
+    public PlayerCTRL PlayerController => playerController;
     private SubLevelManager activeSubLevel;
     private int subLevelCounter = 0;
     public void InitiateLevelManager(GameManager gameManager)
@@ -27,14 +28,8 @@ public class LevelManager : MonoBehaviour
     
     
     
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            deneme();
-        }
-    }
 
+    /*
     private void deneme()
     {
         //todo süpersin doruk
@@ -45,6 +40,6 @@ public class LevelManager : MonoBehaviour
         activeSubLevel = Instantiate(subLevelManagers[subLevelCounter], subLevelManagerInstantiatePos[subLevelCounter]);
         activeSubLevel.InitiateSubLevelManager(this);
         playerController.InitPlayerCTRL(subLevelManagerInstantiatePos[subLevelCounter]);
-    }
+    }*/
 
 }

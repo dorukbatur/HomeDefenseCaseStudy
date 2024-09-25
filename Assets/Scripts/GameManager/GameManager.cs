@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private List<LevelManager> levelManagers = new List<LevelManager>();
     private LevelManager activeLevelManager;
+    public LevelManager ActiveLevelManager => activeLevelManager;
     private int levelCounter;
     
     private void Awake()

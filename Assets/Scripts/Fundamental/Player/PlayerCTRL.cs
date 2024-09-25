@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerCTRL : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class PlayerCTRL : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera camera;
     public CinemachineVirtualCamera Camera => camera;
 
+    [SerializeField] private RigBuilder _rigBuilder;
+    [SerializeField] private Animator animationCtrl;
+    private static int FireTrigger = Animator.StringToHash("FireTrigger");
+    private static int ReloadTrigger = Animator.StringToHash("ReloadTrigger");
+    private static int WeaponIndex = Animator.StringToHash("weaponIndex");
+    
+    
+
     private float xRotation = 0f, yRotation = 0f;
     private float Yclamp = 90f;
     private float Xclamp = 45f;
@@ -20,6 +29,7 @@ public class PlayerCTRL : MonoBehaviour
 
     public void InitPlayerCTRL(Transform walkToThisPos)
     {
+        SetIKDependsOnWeaponType();
         Cursor.lockState = CursorLockMode.Locked;
         weaponCtrl.InitiaterWeaponCtrl();
         StartCoroutine(MoveThePlayerToGamePos(walkToThisPos));
@@ -27,7 +37,6 @@ public class PlayerCTRL : MonoBehaviour
 
     IEnumerator MoveThePlayerToGamePos(Transform walkToThisPos)
     {
-        
         var wait = new WaitForEndOfFrame();
         float timer = 0f, delay = 1f;
         Vector3 startPos = transform.position;
@@ -36,7 +45,6 @@ public class PlayerCTRL : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPos, walkToThisPos.position, timer / delay);
             transform.forward = Vector3.Lerp(startRot, walkToThisPos.forward, timer * 5f / delay);
-            
             timer += Time.deltaTime;
             yield return wait;
         }
@@ -56,4 +64,47 @@ public class PlayerCTRL : MonoBehaviour
         rotationRoot.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
+    public void ReloadWeapon()
+    {
+        SetIKDisabled();
+        DoReloadAnimation();
+        animationCtrl.SetInteger(WeaponIndex, SaveLoadBinary.instance.activeWeaponIndex);
+    }
+
+    public void SetIKDependsOnWeaponType()
+    {
+        SetIKDisabled();
+        StartCoroutine(RigWeightResetter());
+    }
+
+    IEnumerator RigWeightResetter()
+    {
+        var wait = new WaitForEndOfFrame();
+        float timer = 0;
+        float delay = 0.40f;
+        while (timer < delay)
+        {
+            _rigBuilder.layers[SaveLoadBinary.instance.activeWeaponIndex].rig.weight = timer / delay;
+            timer += Time.deltaTime;
+            yield return wait;
+        }
+        _rigBuilder.layers[SaveLoadBinary.instance.activeWeaponIndex].rig.weight = 1;
+        weaponCtrl.ReloadWeaponComplete();
+    }
+
+    private void SetIKDisabled()
+    {
+        foreach (RigLayer layer in _rigBuilder.layers)
+            layer.rig.weight = 0;
+    }
+
+    #region WeaponAnimation
+
+    public void DoReloadAnimation()
+    {
+        animationCtrl.SetTrigger(ReloadTrigger);
+    }
+
+    #endregion
+    
 }
