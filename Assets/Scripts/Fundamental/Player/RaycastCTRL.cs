@@ -8,8 +8,8 @@ public class RaycastCTRL : MonoBehaviour
 
     [SerializeField] private LayerMask layer;
     private PlayerWeaponCTRL parentCtrl;
-    
-    
+
+
     public void Init(PlayerWeaponCTRL parentCtrl)
     {
         this.parentCtrl = parentCtrl;

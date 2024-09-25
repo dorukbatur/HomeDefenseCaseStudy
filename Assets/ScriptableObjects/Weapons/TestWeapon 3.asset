@@ -17,5 +17,6 @@ MonoBehaviour:
   weaponDamage: 46
   weaponFireRate: 410
   weaponAmmoCapacity: 26
+  gameScreenSprite: {fileID: 21300000, guid: edee8eb0c15b6064f943ec1b17135006, type: 3}
   menuScreenSprite: {fileID: 21300000, guid: f89c1134ec308411884248ff29e3da10, type: 3}
   prefab: {fileID: 1494106612615314066, guid: 4a4b8a3ad4e704d41951ddfdb2797d07, type: 3}

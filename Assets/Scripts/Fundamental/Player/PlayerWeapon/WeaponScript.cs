@@ -6,7 +6,7 @@ public class WeaponScript : MonoBehaviour
 {
     [SerializeField] private Transform bulletSpawnPos;
     [SerializeField] private Bullet bulletPrefab;
-
+    
     
     public void FireGun(int bulletDamage)
     {

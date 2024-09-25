@@ -10,6 +10,7 @@ public class WeaponScriptableObject : ScriptableObject
     public int weaponDamage;
     public float weaponFireRate;
     public int weaponAmmoCapacity;
+    public Sprite gameScreenSprite;
     public Sprite menuScreenSprite;
     public GameObject prefab;
 }
