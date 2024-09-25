@@ -55,6 +55,7 @@ public class PlayerWeaponCTRL : MonoBehaviour
             activeWeaponScript.FireGun(bulletDamage);
             ammoCount--;
             UpdateAmmoCountText();
+            GameManager.instance.ActiveLevelManager.PlayerController.FireAnimateWeapon();
         }
         if (ammoCount == 0)
         {

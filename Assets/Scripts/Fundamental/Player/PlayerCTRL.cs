@@ -104,7 +104,11 @@ public class PlayerCTRL : MonoBehaviour
     {
         animationCtrl.SetTrigger(ReloadTrigger);
     }
-
+    public void FireAnimateWeapon()
+    {
+        animationCtrl.SetTrigger(FireTrigger);
+    }
     #endregion
+
     
 }
