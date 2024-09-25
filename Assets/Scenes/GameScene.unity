@@ -2733,6 +2733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6992fe544887a440beb67c3247a2ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeTransform: {fileID: 5144587549789156316}
   damageText: {fileID: 1580308257}
   damageTextUpgrade: {fileID: 1728328587}
   fireRateText: {fileID: 371670985}
