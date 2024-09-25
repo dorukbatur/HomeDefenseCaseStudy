@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     public UICommonManager UICommonManager;
     public UISelectionManager UISelectionManager;
     public UIShootingScreenManager UIShootingScreenManager;
+    [SerializeField] private Transform winScreen, loseScreen;
+    
+    
     public void InitiaterUIManager()
     {
         instance = this;
@@ -38,4 +41,24 @@ public class UIManager : MonoBehaviour
         UISelectionManager.StartGamePressed();
         UIShootingScreenManager.ActivationCrosshair(true);
     }
+
+
+    #region WinLoseScreen
+
+    //win winScreen, loseScreen
+    
+    public void WhenNextLevelButtonPressed()
+    {
+        //todo 
+    }
+    
+    //lose
+    
+    public void WhenFailRetryButtonPressed()
+    {
+        //todo 
+    }
+
+    #endregion
+    
 }
