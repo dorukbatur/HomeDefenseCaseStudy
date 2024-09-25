@@ -8,7 +8,7 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private Bullet bulletPrefab;
 
     
-    public void FireGun(float bulletDamage)
+    public void FireGun(int bulletDamage)
     {
         Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPos);
         bullet.transform.rotation = bulletSpawnPos.transform.rotation;

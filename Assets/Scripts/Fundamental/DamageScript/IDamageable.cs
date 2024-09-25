@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void ReceiveDamage(float damage, bool isDestroyable, DamageReceiver receiverObject);
+    public void ReceiveDamage(int damage, bool isDestroyable, bool isLastDestroyable, DamageReceiver receiverObject);
 
 }

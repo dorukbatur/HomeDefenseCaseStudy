@@ -6,14 +6,15 @@ public class DamageReceiver : MonoBehaviour
 {
     private IDamageable parent;
     [SerializeField] private bool isDestroyable = false;
+    [SerializeField] private bool isLastDestroyable = false;
 
     public void Init(IDamageable parent)
     {
         this.parent = parent;
     }
 
-    public void OnTakeDamage(float damage)
+    public void OnTakeDamage(int damage)
     {
-        parent.ReceiveDamage(damage, isDestroyable, this);
+        parent.ReceiveDamage(damage, isDestroyable, isLastDestroyable,this);
     }
 }

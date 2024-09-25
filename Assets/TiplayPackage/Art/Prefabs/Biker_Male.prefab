@@ -1158,6 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 0
+  isLastDestroyable: 0
 --- !u!65 &3016325536680157364
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1750,6 +1751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 1
+  isLastDestroyable: 0
 --- !u!65 &5012975219538621792
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2347,6 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 0
+  isLastDestroyable: 0
 --- !u!65 &2412058804606018038
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4388,6 +4391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 0
+  isLastDestroyable: 0
 --- !u!65 &2732434303180464479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5168,6 +5172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 1
+  isLastDestroyable: 0
 --- !u!65 &5291581363477856526
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6425,6 +6430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyable: 1
+  isLastDestroyable: 1
 --- !u!65 &5625676680680284990
 BoxCollider:
   m_ObjectHideFlags: 0

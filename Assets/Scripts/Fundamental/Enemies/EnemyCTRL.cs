@@ -59,14 +59,15 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
                 timer -= Time.fixedDeltaTime;
                 break;
             case 2://playera saldır
-                
-                
                 if (timer < 0)
                 {
                     timer = 0.5f;
                     //todo attack player
                 }
                 timer -= Time.fixedDeltaTime;
+                break;
+            case 3:
+                
                 break;
         }
     }
@@ -86,18 +87,31 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         }
     }
     
-    public void ReceiveDamage(float damage, bool isDestroyable, DamageReceiver receiverObject)
+    public void ReceiveDamage(int damage, bool isDestroyable, bool isLastDestroyable, DamageReceiver receiverObject)
     {
-        if (isDestroyable)
+        if (enemyMoveState == 3)
+            return;
+        healthPoints -= damage;
+        if (isDestroyable && !isLastDestroyable)
         {
             receiverObject.gameObject.SetActive(false);
         }
-        //enemy death() animate öldür, blood particle
+        if (healthPoints <= 0)
+        {
+            if (isLastDestroyable)
+            {
+                receiverObject.gameObject.SetActive(false);
+            }
+            OnEnemyDeath();
+        }
     }
     
     
     public void OnEnemyDeath()
     {
+        enemyMoveState = 3;
+        
+        //enemy death() animate öldür, blood particle
         //todo çarı öldür enemy managera söyle progressbar doldursun
     }
 }

@@ -7,9 +7,9 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float bulletSpeed;
-    private float bulletDamage;
+    private int bulletDamage;
 
-    public void SetSpeedtoBullet(float bulletDamage)
+    public void SetSpeedtoBullet(int bulletDamage)
     {
         rb.velocity = transform.forward * bulletSpeed;
         this.bulletDamage = bulletDamage;
