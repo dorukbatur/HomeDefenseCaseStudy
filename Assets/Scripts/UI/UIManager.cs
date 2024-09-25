@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
         instance = this;
         UICommonManager.Init();
         UISelectionManager.Init();
-        UIShootingScreenManager.Init();
+        UIShootingScreenManager.ActivationCrosshair(false);
     }
 
     public void RefreshStatesListItems(int index)
@@ -36,5 +36,6 @@ public class UIManager : MonoBehaviour
     public void StartGamePressed()
     {
         UISelectionManager.StartGamePressed();
+        UIShootingScreenManager.ActivationCrosshair(true);
     }
 }

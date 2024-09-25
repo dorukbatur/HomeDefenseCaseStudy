@@ -2119,6 +2119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba1da13b59c69b4d9c3b90650030613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 2135097596}
   shootingFeedback: {fileID: 1020635449}
 --- !u!1 &1013214516
 GameObject:

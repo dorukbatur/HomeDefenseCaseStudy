@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class UIShootingScreenManager : MonoBehaviour
 {
+    [SerializeField] private Transform parent;
     [SerializeField] private Image shootingFeedback;
     private Color red = Color.red;
-    public void Init()
+
+
+    public void ActivationCrosshair(bool shouldActivate)
     {
-        //todo
+        parent.gameObject.SetActive(shouldActivate);
     }
 
     public void GiveShootFeedback()
