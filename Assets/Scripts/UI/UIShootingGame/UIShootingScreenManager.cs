@@ -9,6 +9,7 @@ public class UIShootingScreenManager : MonoBehaviour
     [SerializeField] private Transform parent;
     [SerializeField] private Image shootingFeedback;
     [SerializeField] private UIWeaponSituation UIWeaponSituation;
+    [SerializeField] private ProgressBar ProgressBar;
     private Color red = Color.red;
 
 
@@ -19,6 +20,12 @@ public class UIShootingScreenManager : MonoBehaviour
         parent.gameObject.SetActive(shouldActivate);
         if (shouldActivate)
             UIWeaponSituation.Init();
+        ProgressBar.Init();
+    }
+
+    public void GiveProgressBarUpdate(float division)
+    {
+        ProgressBar.UpdateFillerImage(division);
     }
 
     public void GiveShootFeedback()
@@ -32,4 +39,7 @@ public class UIShootingScreenManager : MonoBehaviour
     {
         UIWeaponSituation.UpdateAmmoCount(text);
     }
+    
+    
+    
 }

@@ -25,11 +25,13 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     private float timer = 1f;
     private PlayerBarrier barrier;
     private PlayerCTRL playerCTRL;
+    private EnemyManager manager;
     
-    public void Init(Transform targetPos, float speed)
+    public void Init(EnemyManager manager,Transform targetPos, float speed)
     {
         this.targetPos = targetPos;
         this.speed = speed;
+        this.manager = manager;
         _receivers = GetComponentsInChildren<DamageReceiver>();//todo bu değişebilir
         foreach (DamageReceiver receiver in _receivers)
             receiver.Init(this);
@@ -87,7 +89,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         AnimateDeath();
         foreach (DamageReceiver receiver in _receivers)
             receiver.CloseColliders();
-        //todo manager duyacak
+        manager.OnEnemyDeath(this);
         Destroy(gameObject, 4f);
     }
 
