@@ -19,7 +19,13 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         SaveLoadBinary.LoadGame();
-        SaveLoadBinary.instance.activeLevelIndex = 0;
+        SaveLoadOperation();
+        SaveLoadBinary.SaveGame();
+        UIManager.InitiaterUIManager();
+        weaponSelectionManager.InitiateWeaponSelection();
+    }
+    public void SaveLoadOperation()
+    {
         if (SaveLoadBinary.instance.weaponUpgradeLevels == null)
         {
             SaveLoadBinary.instance.weaponUpgradeLevels = new int[weaponSelectionManager.WeaponsList.Count];
@@ -28,12 +34,28 @@ public class GameManager : MonoBehaviour
                 SaveLoadBinary.instance.weaponUpgradeLevels[i] = 0;
             }
         }
-        SaveLoadBinary.SaveGame();
-        UIManager.InitiaterUIManager();
-        weaponSelectionManager.InitiateWeaponSelection();
+        if (SaveLoadBinary.instance.isWeaponBought == null)
+        {
+            SaveLoadBinary.instance.isWeaponBought = new bool[weaponSelectionManager.WeaponsList.Count];
+            for (int i = 0; i < SaveLoadBinary.instance.isWeaponBought.Length; i++)
+            {
+                SaveLoadBinary.instance.isWeaponBought[i] = false;
+            }
+            SaveLoadBinary.instance.isWeaponBought[0] = true;
+        }
+
+        for (int i = 0; i < SaveLoadBinary.instance.isWeaponBought.Length; i++)
+        {
+            if (SaveLoadBinary.instance.isWeaponBought[i])
+            {
+                weaponSelectionManager.WeaponsList[i].weaponCost = 0;
+            }
+        }
     }
-
-
+    public void DoWeaponSelection(int weaponIndex)
+    {
+        weaponSelectionManager.DoWeaponSelection(weaponIndex);
+    }
     #region LevelOperations
     
     public void OnClickStartGame()
@@ -68,11 +90,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    public void DoWeaponSelection(int weaponIndex)
-    {
-        weaponSelectionManager.DoWeaponSelection(weaponIndex);
-    }
-
     #region MoneyOperations
 
     public bool IsMoneyEnoughtoBuy(float cost)

@@ -11,7 +11,12 @@ public class WeaponSelectionManager : MonoBehaviour
     [SerializeField] private List<WeaponScriptableObject> weaponsList;
     private GameObject activeWeaponShown;
 
+    public int SelectedWeaponIndex => selectedWeaponIndex;
+    private int selectedWeaponIndex;
+
     public List<WeaponScriptableObject> WeaponsList => weaponsList;
+
+    
 
     public void InitiateWeaponSelection()
     {
@@ -23,34 +28,63 @@ public class WeaponSelectionManager : MonoBehaviour
         weaponPositioner.Rotate();
     }
     
-    public void DoWeaponSelection(int weaponIndex)
+    public void DoWeaponSelection(int weaponIndex) //listeleme işlemi
     {
         bool isPurchasable, isBought;
         string text;
-        if (WeaponsList[weaponIndex].weaponCost == 0)//alınmışsa butonda update cost göster
+        if (WeaponsList[weaponIndex].weaponCost == 0)//silah satın alınmışsa upgradebuy butonda upgrade cost göster
         {
             SaveLoadBinary.instance.activeWeaponIndex = weaponIndex;
             UIManager.instance.RefreshStatesListItems(weaponIndex);
             float weaponsCalculatedUpgradeCost = (WeaponsList[weaponIndex].weaponUpgradeCost *
                                                   (SaveLoadBinary.instance.weaponUpgradeLevels[weaponIndex] + 1));
             isPurchasable = GameManager.instance.IsMoneyEnoughtoBuy(weaponsCalculatedUpgradeCost);
+            if ((SaveLoadBinary.instance.weaponUpgradeLevels[weaponIndex] + 1) < 5)
+                isPurchasable = false;
             isBought = true;
             text = weaponsCalculatedUpgradeCost.ToString();
         }
-        else//alınmamışsa butonda silahın costunu göster
+        else//silah satın alınmamışsa upgradebuy butonda silahın costunu göster
         {
             UIManager.instance.ChooseStateOfListItem(weaponIndex);
             isPurchasable = GameManager.instance.IsMoneyEnoughtoBuy(WeaponsList[weaponIndex].weaponCost);
             isBought = false;
             text = WeaponsList[weaponIndex].weaponCost.ToString();
         }
-        
+        selectedWeaponIndex = weaponIndex;
         UIManager.instance.UpdateUpgradeBuyButton(text + " $", isBought, isPurchasable);
         ShowWeapon(weaponIndex);
     }
-    
-    
-    
+
+    public void UpgradeBuyButtonIsPressed() // satınalma işlemi
+    {
+        float cost;
+        if (WeaponsList[selectedWeaponIndex].weaponCost == 0)//silah satın alınmışsa upgradebuy butonda upgrade cost göster
+        {
+            //UIManager.instance.RefreshStatesListItems(selectedWeaponIndex);
+            cost = (WeaponsList[selectedWeaponIndex].weaponUpgradeCost *
+                          (SaveLoadBinary.instance.weaponUpgradeLevels[selectedWeaponIndex] + 1));
+            if (GameManager.instance.IsMoneyEnoughtoBuy(cost))
+            {
+                GameManager.instance.BuySomething(cost);
+                SaveLoadBinary.instance.weaponUpgradeLevels[selectedWeaponIndex]++;
+                SaveLoadBinary.SaveGame();
+            }
+        }
+        else//silah satın alınmamışsa upgradebuy butonda silahın costunu göster
+        {
+            cost = WeaponsList[selectedWeaponIndex].weaponCost;
+            UIManager.instance.ChooseStateOfListItem(selectedWeaponIndex);
+            if (GameManager.instance.IsMoneyEnoughtoBuy(cost))
+            {
+                GameManager.instance.BuySomething(cost);
+                WeaponsList[selectedWeaponIndex].weaponCost = 0;
+                SaveLoadBinary.instance.isWeaponBought[selectedWeaponIndex] = true;
+                SaveLoadBinary.SaveGame();
+            }
+        }
+        DoWeaponSelection(selectedWeaponIndex);
+    }
     
     public void ShowWeapon(int index)
     {

@@ -26,7 +26,7 @@ public class UIProceedManager : MonoBehaviour
     
     public void OnClickUpgradeBuyButton()
     {
-        //todo upgrade operations
+        GameManager.instance.weaponSelectionManager.UpgradeBuyButtonIsPressed();
     }
     
 

@@ -14,8 +14,8 @@ public class SaveLoadBinary
     public int activeLevelIndex = 0;
     public float collectedMoney = 0;
     
-    //todo money, level, etc.
     public int[] weaponUpgradeLevels;
+    public bool[] isWeaponBought;
     
     public static void SaveGame()
     {
