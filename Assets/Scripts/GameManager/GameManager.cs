@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             UIManager.RevealHideWinScreen(false);
             SaveLoadBinary.instance.activeLevelIndex++;
+            SaveLoadBinary.instance.activeLevelIndex %= levelManagers.Count;
         }
         else
             UIManager.RevealHideLoseScreen(false);
