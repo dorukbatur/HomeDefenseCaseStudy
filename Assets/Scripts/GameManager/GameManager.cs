@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,10 +9,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public UIManager UIManager;
     public WeaponSelectionManager weaponSelectionManager;
-    
     [SerializeField] private List<LevelManager> levelManagers = new List<LevelManager>();
+    [SerializeField] private int moneyGainAmount = 40;
     private LevelManager activeLevelManager;
     public LevelManager ActiveLevelManager => activeLevelManager;
+
+    
+
     private int levelCounter;
     
     private void Awake()
@@ -28,8 +32,6 @@ public class GameManager : MonoBehaviour
             }
         }
         SaveLoadBinary.SaveGame();
-        
-        SaveLoadBinary.instance.collectedMoney = 100;//todo silmeyi unutma
         UIManager.InitiaterUIManager();
         weaponSelectionManager.InitiateWeaponSelection();
     }
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
         activeLevelManager.InitiateLevelManager(this);
 
     }
+    
+    
 
     #endregion
     public void DoWeaponSelection(int weaponIndex)
@@ -65,6 +69,12 @@ public class GameManager : MonoBehaviour
     public void BuySomething(float cost)
     {
         SaveLoadBinary.instance.collectedMoney -= cost;
+        SaveLoadBinary.SaveGame();
+    }
+    public void CollectMoney()
+    {
+        SaveLoadBinary.instance.collectedMoney += moneyGainAmount;
+        UIManager.UICommonManager.Init();
         SaveLoadBinary.SaveGame();
     }
 

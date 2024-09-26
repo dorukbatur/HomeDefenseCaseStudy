@@ -34,5 +34,12 @@ public class EnemyManager : MonoBehaviour
             enemies.Remove(enemyCtrl);
         float division = 1 - ((float)enemies.Count / (float)OnstartEnemyCount);
         UIManager.instance.UIShootingScreenManager.GiveProgressBarUpdate(division);
+        UIManager.instance.UICommonManager.MoneyParticleSpawner();
+
+        if (enemies.Count == 0)
+        {
+            parentSubLevel.SubLevelIsCompleted();
+            //nextSubLevel;
+        }
     }
 }
