@@ -26,7 +26,7 @@ public class PlayerCTRL : MonoBehaviour
 
     public void InitPlayerCTRL(Transform walkToThisPos)
     {
-        SetIKDependsOnWeaponType();
+        //SetIKDependsOnWeaponType();
         Cursor.lockState = CursorLockMode.Locked;
         weaponCtrl.InitiaterWeaponCtrl();
         StartCoroutine(MoveThePlayerToGamePos(walkToThisPos));

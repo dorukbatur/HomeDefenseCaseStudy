@@ -23,9 +23,11 @@ public class PlayerWeaponCTRL : MonoBehaviour
         ammoCapacity = weaponsScriptableObjects[index].weaponAmmoCapacity +
                        weaponsScriptableObjects[index].weaponUpgradeAmmoCapacity *
                        SaveLoadBinary.instance.weaponUpgradeLevels[index];
-        ammoCount = ammoCapacity;
         ShowWeapon(index);
         _raycastCtrl.Init(this);
+        
+        isReloading = true;
+        GameManager.instance.ActiveLevelManager.PlayerController.ReloadWeapon();
     }
 
     private void FixedUpdate()
@@ -34,7 +36,7 @@ public class PlayerWeaponCTRL : MonoBehaviour
             return;
         if (timer < 0)
         {
-            timer = fireRate;//todo fire rate işlencek
+            timer = fireRate;
             if (_raycastCtrl.UpdateRaycastCTRL())
             {
                 FireWeapon();
