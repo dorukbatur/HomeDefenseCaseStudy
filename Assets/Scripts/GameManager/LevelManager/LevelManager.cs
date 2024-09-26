@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
     {
         if (activeSubLevel != null)
         {
-            Destroy(activeSubLevel.gameObject, 1f);
+            Destroy(activeSubLevel.gameObject, 4f);
         }
         if (subLevelCounter>=subLevelManagers.Count)
         {

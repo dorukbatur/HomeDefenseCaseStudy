@@ -96,7 +96,23 @@ public class PlayerCTRL : MonoBehaviour
     private void SetIKDisabled()
     {
         foreach (RigLayer layer in _rigBuilder.layers)
-            layer.rig.weight = 0;
+        {
+            StartCoroutine(RigWeightZeroerEnumerator(layer));
+        }
+        
+    }
+    IEnumerator RigWeightZeroerEnumerator(RigLayer layer)
+    {
+        var wait = new WaitForEndOfFrame();
+        float timer = 0;
+        float delay = 0.40f;
+        while (timer < delay)
+        {
+            layer.rig.weight = delay - timer / delay;
+            timer += Time.deltaTime;
+            yield return wait;
+        }
+        layer.rig.weight = 0;
     }
 
     #region WeaponAnimation
