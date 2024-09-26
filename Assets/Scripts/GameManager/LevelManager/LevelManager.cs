@@ -32,10 +32,9 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(activeSubLevel.gameObject, 1f);
         }
-        //subLevelCounter %= subLevelManagers.Count;
         if (subLevelCounter>=subLevelManagers.Count)
         {
-            gameManager.LevelEndedByGamePlay();
+            gameManager.LevelEndWithScreen(true);
             return;
         }
         activeSubLevel = Instantiate(subLevelManagers[subLevelCounter], subLevelManagerInstantiatePos[subLevelCounter]);

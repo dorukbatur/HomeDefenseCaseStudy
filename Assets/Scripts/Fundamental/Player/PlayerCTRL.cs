@@ -11,11 +11,7 @@ public class PlayerCTRL : MonoBehaviour
     private float sensivity = 400;
     [SerializeField] private Transform rotationRoot;
     [SerializeField] private PlayerWeaponCTRL weaponCtrl;
-    [SerializeField] private CinemachineVirtualCamera camera;
-    public CinemachineVirtualCamera Camera => camera;
-
     [SerializeField] private RigBuilder _rigBuilder;
-    
     [SerializeField] private Animator animationCtrl;
     private static int FireTrigger = Animator.StringToHash("FireTrigger");
     private static int ReloadTrigger = Animator.StringToHash("ReloadTrigger");

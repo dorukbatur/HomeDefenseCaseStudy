@@ -22,7 +22,6 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     private float speed;
     private Transform targetPos;
     private Vector3 direction;
-    private float timer = 1f;
     private PlayerBarrier barrier;
     private PlayerCTRL playerCTRL;
     private EnemyManager manager;
@@ -80,7 +79,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     public void EnemyAttackPlayer()
     {
         AnimateAttackToPlayer();
-        //todo lose screen
+        GameManager.instance.LevelEndWithScreen(false);
     }
 
     public void EnemyDeath()

@@ -61,15 +61,14 @@ public class UIManager : MonoBehaviour
     
     public void WhenNextLevelButtonPressed()
     {
-        GameManager.instance.NextLevelInitiater();
-        
+        GameManager.instance.NextOrRetryInitiater(true);
     }
     
     //lose
     
     public void WhenFailRetryButtonPressed()
     {
-        //todo 
+        GameManager.instance.NextOrRetryInitiater(false);
     }
 
     #endregion

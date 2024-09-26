@@ -13,15 +13,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int moneyGainAmount = 40;
     private LevelManager activeLevelManager;
     public LevelManager ActiveLevelManager => activeLevelManager;
-
-    
-
     private int levelCounter;
     
     private void Awake()
     {
         instance = this;
         SaveLoadBinary.LoadGame();
+        SaveLoadBinary.instance.activeLevelIndex = 0;
         if (SaveLoadBinary.instance.weaponUpgradeLevels == null)
         {
             SaveLoadBinary.instance.weaponUpgradeLevels = new int[weaponSelectionManager.WeaponsList.Count];
@@ -38,8 +36,6 @@ public class GameManager : MonoBehaviour
 
     #region LevelOperations
     
-    
-    
     public void OnClickStartGame()
     {
         weaponSelectionManager.StartGamePressed();
@@ -48,39 +44,28 @@ public class GameManager : MonoBehaviour
         activeLevelManager.InitiateLevelManager(this);
     }
 
-    public void LevelEndedByGamePlay()
+
+    public void LevelEndWithScreen(bool isWin)
     {
+        if (isWin)
+            UIManager.RevealHideWinScreen(true);
+        else
+            UIManager.RevealHideLoseScreen(true);
         activeLevelManager.PlayerController.LevelEnd();
-        UIManager.RevealHideWinScreen(true);
         SaveLoadBinary.SaveGame();
     }
 
-    public void NextLevelInitiater()
+    public void NextOrRetryInitiater(bool isWin)
     {
-        SaveLoadBinary.instance.activeLevelIndex++;
+        if (isWin)
+            UIManager.RevealHideWinScreen(false);
+        else
+            UIManager.RevealHideLoseScreen(false);
         UIManager.InitiaterUIManager();
-        UIManager.RevealHideWinScreen(false);
         weaponSelectionManager.InitiateWeaponSelection();
         Destroy(activeLevelManager.gameObject);
         SaveLoadBinary.SaveGame();
     }
-
-    public void LevelEndedByFail()
-    {
-        activeLevelManager.PlayerController.LevelEnd();
-        UIManager.RevealHideLoseScreen(true);
-        SaveLoadBinary.SaveGame();
-    }
-    
-    public void RetryLevelInitiater()
-    {
-        UIManager.InitiaterUIManager();
-        UIManager.RevealHideWinScreen(false);
-        weaponSelectionManager.InitiateWeaponSelection();
-        Destroy(activeLevelManager.gameObject);
-        SaveLoadBinary.SaveGame();
-    }
-    
 
     #endregion
     public void DoWeaponSelection(int weaponIndex)
