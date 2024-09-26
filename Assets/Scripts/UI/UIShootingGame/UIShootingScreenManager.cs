@@ -23,6 +23,11 @@ public class UIShootingScreenManager : MonoBehaviour
         ProgressBar.Init();
     }
 
+    public void ProgressBarInit()
+    {
+        ProgressBar.Init();
+    }
+
     public void GiveProgressBarUpdate(float division)
     {
         ProgressBar.UpdateFillerImage(division);

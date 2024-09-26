@@ -29,12 +29,19 @@ public class LevelManager : MonoBehaviour
     public void NextSubLevel()
     {
         if (activeSubLevel != null)
-            Destroy(activeSubLevel.gameObject);
-        subLevelCounter %= subLevelManagers.Count;
-        //subLevelCounter == 0;
+        {
+            Destroy(activeSubLevel.gameObject, 1f);
+        }
+        //subLevelCounter %= subLevelManagers.Count;
+        if (subLevelCounter>=subLevelManagers.Count)
+        {
+            gameManager.LevelEndedByGamePlay();
+            return;
+        }
         activeSubLevel = Instantiate(subLevelManagers[subLevelCounter], subLevelManagerInstantiatePos[subLevelCounter]);
         activeSubLevel.InitiateSubLevelManager(this);
         playerController.InitPlayerCTRL(subLevelManagerInstantiatePos[subLevelCounter]);
+        UIManager.instance.UIShootingScreenManager.ProgressBarInit();
         subLevelCounter++;
     }
     

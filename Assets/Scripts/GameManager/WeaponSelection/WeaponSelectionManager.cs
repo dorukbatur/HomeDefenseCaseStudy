@@ -15,6 +15,7 @@ public class WeaponSelectionManager : MonoBehaviour
 
     public void InitiateWeaponSelection()
     {
+        envParent.gameObject.SetActive(true);
         DoWeaponSelection(SaveLoadBinary.instance.activeWeaponIndex);
     }
     private void Update()

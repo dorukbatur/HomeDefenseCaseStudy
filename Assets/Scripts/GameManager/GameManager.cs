@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         SaveLoadBinary.LoadGame();
-        SaveLoadBinary.instance.activeWeaponIndex = 0;
         if (SaveLoadBinary.instance.weaponUpgradeLevels == null)
         {
             SaveLoadBinary.instance.weaponUpgradeLevels = new int[weaponSelectionManager.WeaponsList.Count];
@@ -44,13 +43,43 @@ public class GameManager : MonoBehaviour
     public void OnClickStartGame()
     {
         weaponSelectionManager.StartGamePressed();
-        
         levelCounter = SaveLoadBinary.instance.activeLevelIndex;
         activeLevelManager = Instantiate(levelManagers[levelCounter], transform);
         activeLevelManager.InitiateLevelManager(this);
+    }
 
+    public void LevelEndedByGamePlay()
+    {
+        activeLevelManager.PlayerController.LevelEnd();
+        UIManager.RevealHideWinScreen(true);
+        SaveLoadBinary.SaveGame();
+    }
+
+    public void NextLevelInitiater()
+    {
+        SaveLoadBinary.instance.activeLevelIndex++;
+        UIManager.InitiaterUIManager();
+        UIManager.RevealHideWinScreen(false);
+        weaponSelectionManager.InitiateWeaponSelection();
+        Destroy(activeLevelManager.gameObject);
+        SaveLoadBinary.SaveGame();
+    }
+
+    public void LevelEndedByFail()
+    {
+        activeLevelManager.PlayerController.LevelEnd();
+        UIManager.RevealHideLoseScreen(true);
+        SaveLoadBinary.SaveGame();
     }
     
+    public void RetryLevelInitiater()
+    {
+        UIManager.InitiaterUIManager();
+        UIManager.RevealHideWinScreen(false);
+        weaponSelectionManager.InitiateWeaponSelection();
+        Destroy(activeLevelManager.gameObject);
+        SaveLoadBinary.SaveGame();
+    }
     
 
     #endregion

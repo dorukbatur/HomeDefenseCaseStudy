@@ -22,7 +22,7 @@ public class PlayerCTRL : MonoBehaviour
     private float xRotation = 0f, yRotation = 0f;
     private float Yclamp = 90f;
     private float Xclamp = 45f;
-
+    private bool endLevelBool = false;
 
     public void InitPlayerCTRL(Transform walkToThisPos)
     {
@@ -31,17 +31,23 @@ public class PlayerCTRL : MonoBehaviour
         weaponCtrl.InitiaterWeaponCtrl();
         StartCoroutine(MoveThePlayerToGamePos(walkToThisPos));
     }
+    
+    public void LevelEnd()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        endLevelBool = true;
+    }
 
     IEnumerator MoveThePlayerToGamePos(Transform walkToThisPos)
     {
         var wait = new WaitForEndOfFrame();
-        float timer = 0f, delay = 1f;
+        float timer = 0f, delay = 2f;
         Vector3 startPos = transform.position;
         Vector3 startRot = transform.forward;
         while (timer < delay)
         {
             transform.position = Vector3.Lerp(startPos, walkToThisPos.position, timer / delay);
-            transform.forward = Vector3.Lerp(startRot, walkToThisPos.forward, timer * 5f / delay);
+            transform.forward = Vector3.Lerp(startRot, walkToThisPos.forward, timer / delay);
             timer += Time.deltaTime;
             yield return wait;
         }
@@ -49,6 +55,8 @@ public class PlayerCTRL : MonoBehaviour
 
     private void Update()
     {
+        if (endLevelBool)
+            return;
         float mouseX = Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
 
@@ -60,6 +68,7 @@ public class PlayerCTRL : MonoBehaviour
 
         rotationRoot.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
+
 
     public void ReloadWeapon()
     {

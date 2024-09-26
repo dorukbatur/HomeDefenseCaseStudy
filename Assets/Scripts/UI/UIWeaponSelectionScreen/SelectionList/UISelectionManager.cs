@@ -12,15 +12,14 @@ public class UISelectionManager : MonoBehaviour
     [SerializeField] private List<WeaponScriptableObject> weapons;
     [SerializeField] private UIProceedManager uiProceedManager;
     [SerializeField] private UIInfoGraphicManager uiInfoGraphicManager;
-    private List<ListItem> weaponListUIItems = new List<ListItem>();
+    [SerializeField] private List<ListItem> weaponListUIItems = new List<ListItem>();
 
     public void Init()
     {
+        gameObject.SetActive(true);
         for (int i = 0; i < weapons.Count; i++)
         {
-            ListItem item = Instantiate(listItemPrefab, Vector3.zero, Quaternion.identity, selectionLayoutParent);
-            weaponListUIItems.Add(item);
-            item.Init(this, weapons[i].menuScreenSprite, weapons[i].weaponCost.ToString());
+            weaponListUIItems[i].Init(this, weapons[i].menuScreenSprite, weapons[i].weaponCost.ToString());
         }
         RefreshStatesListItems(SaveLoadBinary.instance.activeWeaponIndex);
         uiProceedManager.Init(this);

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -45,11 +47,22 @@ public class UIManager : MonoBehaviour
 
     #region WinLoseScreen
 
+    public void RevealHideWinScreen(bool shouldBeShown)
+    {
+        winScreen.gameObject.SetActive(shouldBeShown);
+    }
+    public void RevealHideLoseScreen(bool shouldBeShown)
+    {
+        loseScreen.gameObject.SetActive(shouldBeShown);
+    }
+    
+    
     //win winScreen, loseScreen
     
     public void WhenNextLevelButtonPressed()
     {
-        //todo 
+        GameManager.instance.NextLevelInitiater();
+        
     }
     
     //lose
