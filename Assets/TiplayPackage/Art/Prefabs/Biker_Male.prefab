@@ -8440,7 +8440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4901104287654457250}
-  healthPoints: 50
+  healthPoints: 120
   damagePoints: 10
   enemyAnimatorCTRL: {fileID: 7403463167162086041}
 --- !u!95 &7403463167162086041

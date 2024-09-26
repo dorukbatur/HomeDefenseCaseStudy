@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour
         if (enemies.Count == 0)
         {
             parentSubLevel.SubLevelIsCompleted();
-            //nextSubLevel;
         }
     }
 }

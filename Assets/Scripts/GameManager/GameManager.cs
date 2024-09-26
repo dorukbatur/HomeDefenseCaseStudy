@@ -80,7 +80,10 @@ public class GameManager : MonoBehaviour
     public void NextOrRetryInitiater(bool isWin)
     {
         if (isWin)
+        {
             UIManager.RevealHideWinScreen(false);
+            SaveLoadBinary.instance.activeLevelIndex++;
+        }
         else
             UIManager.RevealHideLoseScreen(false);
         UIManager.InitiaterUIManager();

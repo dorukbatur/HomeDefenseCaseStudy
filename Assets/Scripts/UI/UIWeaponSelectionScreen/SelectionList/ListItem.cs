@@ -29,7 +29,6 @@ public class ListItem : MonoBehaviour
     
     public void SetImage(Sprite sprite)
     {
-        itemImage.gameObject.SetActive(true); //TODO burayı silmeyi unutma
         itemImage.sprite = sprite;
     }
     

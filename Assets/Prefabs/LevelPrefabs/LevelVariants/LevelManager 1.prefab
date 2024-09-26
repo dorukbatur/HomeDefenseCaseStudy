@@ -1201,9 +1201,13 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8137713609063026185, guid: f9519f1402d17f341be5bcf6c8c906a3, type: 3}
+      propertyPath: subLevelManagers.Array.data[0]
+      value: 
+      objectReference: {fileID: 5930677030886008199, guid: 73ab6321733bfb14faac4328103a0973, type: 3}
+    - target: {fileID: 8137713609063026185, guid: f9519f1402d17f341be5bcf6c8c906a3, type: 3}
       propertyPath: subLevelManagers.Array.data[1]
       value: 
-      objectReference: {fileID: 3422875709199922907, guid: 62d2b06bf63949e458cd19233cc9dc42, type: 3}
+      objectReference: {fileID: 6250091103677166424, guid: e23725352f07bc04bbb18d85915f07b9, type: 3}
     - target: {fileID: 8137713609063026185, guid: f9519f1402d17f341be5bcf6c8c906a3, type: 3}
       propertyPath: subLevelManagerInstantiatePos.Array.size
       value: 2
