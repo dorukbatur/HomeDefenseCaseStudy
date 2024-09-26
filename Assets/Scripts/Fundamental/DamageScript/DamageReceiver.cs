@@ -23,7 +23,12 @@ public class DamageReceiver : MonoBehaviour
 
     public void HideDamagedPart()
     {
-        _collider.enabled = false;
+        CloseColliders();
         receiverObject.gameObject.SetActive(false);
+    }
+
+    public void CloseColliders()
+    {
+        _collider.enabled = false;
     }
 }

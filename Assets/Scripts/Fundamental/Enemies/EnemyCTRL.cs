@@ -23,7 +23,6 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     private float timer = 1f;
     private PlayerBarrier barrier;
     private PlayerCTRL playerCTRL;
-    private bool animationHandler = true;
     
     public void Init(Transform targetPos, float speed)
     {
@@ -32,71 +31,77 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         _receivers = GetComponentsInChildren<DamageReceiver>();//todo bu değişebilir
         foreach (DamageReceiver receiver in _receivers)
             receiver.Init(this);
+        AnimateMove();
     }
 
     
     private void FixedUpdate()
     {
-        //DecideNextMove();
+        if (enemyMoveState == 0)
+        {
+            EnemyMove();
+        }
     }
 
-    
-    private void DecideNextMove()
+    private void EnemyMove()
     {
-        
-        //TODO POLİSH AT 
-        switch (enemyMoveState)
+        direction = Vector3.Normalize(targetPos.position - transform.position);
+        transform.forward = direction;
+        rb.velocity = direction * speed;
+    }
+
+    public void EnemyAttackBarrier()
+    {
+        if (barrier.HealthPoints <= 0)
         {
-            case 0:// playera doğru yürü
-                direction = Vector3.Normalize(targetPos.position - transform.position);
-                transform.forward = direction;
-                rb.velocity = direction * speed;
-                AnimateMove();
-                break;
-            case 1://bariyere saldır
-                if (barrier.HealthPoints <= 0)
-                {
-                    enemyMoveState = 0;
-                    animationHandler = true;
-                    break;
-                }
-                if (timer < 0)
-                {
-                    timer = 0.5f;
-                    animationHandler = true;
-                    AnimateAttackToBarrier();
-                    barrier.TakeDamage(damagePoints);//süreyle yap bu işi ya da anim event 
-                }
-                timer -= Time.fixedDeltaTime;
-                break;
-            case 2://playera saldır
-                if (timer < 0)
-                {
-                    timer = 0.5f;
-                    animationHandler = true;
-                    AnimateAttackToPlayer();
-                    //todo attack player
-                }
-                timer -= Time.fixedDeltaTime;
-                break;
-            case 3:
-                AnimateDeath();
-                break;
+            enemyMoveState = 0;
+            return;
         }
+        AnimateAttackToBarrier();
+    }
+
+    public void BarrierReceiveDamage()
+    {
+        barrier.TakeDamage(damagePoints);
+        EnemyAttackBarrier();
+    }
+    
+    public void EnemyAttackPlayer()
+    {
+        AnimateAttackToPlayer();
+        //todo lose screen
+    }
+
+    public void EnemyDeath()
+    {
+        enemyMoveState = 3;
+        AnimateDeath();
+        foreach (DamageReceiver receiver in _receivers)
+            receiver.CloseColliders();
+        //todo manager duyacak
+        Destroy(gameObject, 4f);
     }
 
     
     private void OnTriggerEnter(Collider other)
     {
-        barrier = other.GetComponent<PlayerBarrier>();
-        playerCTRL = other.GetComponent<PlayerCTRL>();
+        PlayerBarrier barrier = other.GetComponent<PlayerBarrier>();
+        PlayerCTRL playerCTRL = other.GetComponent<PlayerCTRL>();
         if (barrier)
         {
+            if (enemyMoveState == 1)
+                return;
+            this.barrier = barrier;
             enemyMoveState = 1;
+            EnemyAttackBarrier();
         }
         else if (playerCTRL)
         {
+            if (enemyMoveState == 2)
+                return;
+            this.playerCTRL = playerCTRL;
             enemyMoveState = 2;
+            EnemyAttackPlayer();
         }
     }
     
@@ -115,48 +120,28 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
             {
                 receiverObject.HideDamagedPart();
             }
-            OnEnemyDeath();
+            EnemyDeath();
         }
     }
     
-    
-    public void OnEnemyDeath()
-    {
-        enemyMoveState = 3;
-        animationHandler = true;
-        //enemy death() animate öldür, blood particle
-        //todo çarı öldür enemy managera söyle progressbar doldursun
-    }
-
 
     #region Animations
 
-    public void AnimationHandler()
-    {
-        if (!animationHandler)
-            return;
-        animationHandler = false;
-    }
     public void AnimateMove()
     {
-        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(Walk);
     }
-    
 
     public void AnimateAttackToPlayer()
     {
-        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(AttackPlayer);
     }
     public void AnimateAttackToBarrier()
     {
-        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(AttackBarrier);
     }
     public void AnimateDeath()
     {
-        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(Die);
     }
 
