@@ -342,6 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPos: {fileID: 9088241710607558144}
   bulletPrefab: {fileID: 59961548161722631, guid: d88b9120bba58b948b1f2ad654e6dbed, type: 3}
+  gunparticle: {fileID: 19818896, guid: 2ee75207ad324a1488ea14b7cd61b8fd, type: 3}
 --- !u!1 &8306395323831587864
 GameObject:
   m_ObjectHideFlags: 0
