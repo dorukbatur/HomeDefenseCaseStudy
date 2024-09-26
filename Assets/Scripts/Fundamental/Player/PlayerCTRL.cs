@@ -15,12 +15,10 @@ public class PlayerCTRL : MonoBehaviour
     public CinemachineVirtualCamera Camera => camera;
 
     [SerializeField] private RigBuilder _rigBuilder;
+    
     [SerializeField] private Animator animationCtrl;
     private static int FireTrigger = Animator.StringToHash("FireTrigger");
     private static int ReloadTrigger = Animator.StringToHash("ReloadTrigger");
-    
-    
-
     private float xRotation = 0f, yRotation = 0f;
     private float Yclamp = 90f;
     private float Xclamp = 45f;

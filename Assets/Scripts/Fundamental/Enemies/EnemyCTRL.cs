@@ -8,7 +8,13 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     [SerializeField] private Rigidbody rb;
     [SerializeField] private int healthPoints = 50;
     [SerializeField] private int damagePoints = 10;
+    [SerializeField] private Animator enemyAnimatorCTRL;
 
+    private static int AttackPlayer = Animator.StringToHash("AttackPlayer");
+    private static int AttackBarrier = Animator.StringToHash("AttackBarrier");
+    private static int Walk = Animator.StringToHash("Walk");
+    private static int Die = Animator.StringToHash("Die");
+    
     private DamageReceiver[] _receivers;
     private int enemyMoveState = 0;
     private float speed;
@@ -54,6 +60,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
                 if (timer < 0)
                 {
                     timer = 0.5f;
+                    AnimateAttackToBarrier();
                     barrier.TakeDamage(damagePoints);//süreyle yap bu işi ya da anim event 
                 }
                 timer -= Time.fixedDeltaTime;
@@ -62,12 +69,13 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
                 if (timer < 0)
                 {
                     timer = 0.5f;
+                    AnimateAttackToPlayer();
                     //todo attack player
                 }
                 timer -= Time.fixedDeltaTime;
                 break;
             case 3:
-                
+                AnimateDeath();
                 break;
         }
     }
@@ -94,13 +102,13 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         healthPoints -= damage;
         if (isDestroyable && !isLastDestroyable)
         {
-            receiverObject.gameObject.SetActive(false);
+            receiverObject.HideDamagedPart();
         }
         if (healthPoints <= 0)
         {
             if (isLastDestroyable)
             {
-                receiverObject.gameObject.SetActive(false);
+                receiverObject.HideDamagedPart();
             }
             OnEnemyDeath();
         }
@@ -114,4 +122,27 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         //enemy death() animate öldür, blood particle
         //todo çarı öldür enemy managera söyle progressbar doldursun
     }
+
+
+    #region Animations
+
+    public void AnimateMove()
+    {
+        enemyAnimatorCTRL.SetTrigger(Walk);
+    }
+
+    public void AnimateAttackToPlayer()
+    {
+        enemyAnimatorCTRL.SetTrigger(AttackPlayer);
+    }
+    public void AnimateAttackToBarrier()
+    {
+        enemyAnimatorCTRL.SetTrigger(AttackBarrier);
+    }
+    public void AnimateDeath()
+    {
+        enemyAnimatorCTRL.SetTrigger(Die);
+    }
+
+    #endregion
 }

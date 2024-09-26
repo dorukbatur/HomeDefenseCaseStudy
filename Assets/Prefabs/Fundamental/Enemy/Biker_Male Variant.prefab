@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Biker_Male Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7403463167162086041, guid: e6ff63859df504d4598a8436fdda570b, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 023446c45b7b8444d9881a487317be1a, type: 3}
+    - target: {fileID: 7403463167162086041, guid: e6ff63859df504d4598a8436fdda570b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 987528d1bfe02104baa5f578ddba5c24, type: 2}
     - target: {fileID: 7695231452904101881, guid: e6ff63859df504d4598a8436fdda570b, type: 3}
       propertyPath: m_RootOrder
       value: 0
