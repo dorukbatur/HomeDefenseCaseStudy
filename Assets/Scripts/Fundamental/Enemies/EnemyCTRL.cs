@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyCTRL : MonoBehaviour,IDamageable
 {
@@ -14,6 +15,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     private static int AttackBarrier = Animator.StringToHash("AttackBarrier");
     private static int Walk = Animator.StringToHash("Walk");
     private static int Die = Animator.StringToHash("Die");
+    private static int RandomInt = Animator.StringToHash("RandomInt");
     
     private DamageReceiver[] _receivers;
     private int enemyMoveState = 0;
@@ -31,7 +33,14 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
         _receivers = GetComponentsInChildren<DamageReceiver>();//todo bu değişebilir
         foreach (DamageReceiver receiver in _receivers)
             receiver.Init(this);
+        StartCoroutine(RandomWait());
+    }
+
+    IEnumerator RandomWait()
+    {
+        var wait = new WaitForSeconds(Random.Range(0, 2f));
         AnimateMove();
+        yield return wait;
     }
 
     
@@ -142,6 +151,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     }
     public void AnimateDeath()
     {
+        enemyAnimatorCTRL.SetInteger(RandomInt, Random.Range(0, 3));
         enemyAnimatorCTRL.SetTrigger(Die);
     }
 
