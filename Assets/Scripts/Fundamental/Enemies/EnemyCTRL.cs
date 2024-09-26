@@ -23,6 +23,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     private float timer = 1f;
     private PlayerBarrier barrier;
     private PlayerCTRL playerCTRL;
+    private bool animationHandler = true;
     
     public void Init(Transform targetPos, float speed)
     {
@@ -36,7 +37,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     
     private void FixedUpdate()
     {
-        DecideNextMove();
+        //DecideNextMove();
     }
 
     
@@ -50,16 +51,19 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
                 direction = Vector3.Normalize(targetPos.position - transform.position);
                 transform.forward = direction;
                 rb.velocity = direction * speed;
+                AnimateMove();
                 break;
             case 1://bariyere saldır
                 if (barrier.HealthPoints <= 0)
                 {
                     enemyMoveState = 0;
+                    animationHandler = true;
                     break;
                 }
                 if (timer < 0)
                 {
                     timer = 0.5f;
+                    animationHandler = true;
                     AnimateAttackToBarrier();
                     barrier.TakeDamage(damagePoints);//süreyle yap bu işi ya da anim event 
                 }
@@ -69,6 +73,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
                 if (timer < 0)
                 {
                     timer = 0.5f;
+                    animationHandler = true;
                     AnimateAttackToPlayer();
                     //todo attack player
                 }
@@ -118,7 +123,7 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
     public void OnEnemyDeath()
     {
         enemyMoveState = 3;
-        
+        animationHandler = true;
         //enemy death() animate öldür, blood particle
         //todo çarı öldür enemy managera söyle progressbar doldursun
     }
@@ -126,21 +131,32 @@ public class EnemyCTRL : MonoBehaviour,IDamageable
 
     #region Animations
 
+    public void AnimationHandler()
+    {
+        if (!animationHandler)
+            return;
+        animationHandler = false;
+    }
     public void AnimateMove()
     {
+        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(Walk);
     }
+    
 
     public void AnimateAttackToPlayer()
     {
+        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(AttackPlayer);
     }
     public void AnimateAttackToBarrier()
     {
+        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(AttackBarrier);
     }
     public void AnimateDeath()
     {
+        AnimationHandler();
         enemyAnimatorCTRL.SetTrigger(Die);
     }
 
