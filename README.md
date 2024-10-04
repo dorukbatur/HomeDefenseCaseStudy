@@ -2,6 +2,7 @@ Information About the project
 
 This is a case study project and this information has written about the code and how it works 
 
+MVC based coding principles major included
 There is 2 major gameobject that backbone of the hierarchy 
 * GameManager
 * UIManager
