@@ -1,4 +1,4 @@
-Information About the project
+Information About the project "UNITY 2021.3.7F1”
 
 This is a case study project and this information has written about the code and how it works 
 
